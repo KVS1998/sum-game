@@ -1,0 +1,67 @@
+body
+{
+	background: #faffb7;
+}
+.toDiv
+{
+	display: grid;
+	grid-template-columns: 20% 80%;
+}
+.onButton
+{
+	font-family: Arial, Helvetica, sans-serif;
+	background: #ff6a00;
+	font-size: 40px;
+	color: white;
+	padding-top: 10px;
+	border: none;
+	margin-top: 100px;
+	margin-bottom:100px;
+	margin-left: 30px;
+	width: 200px;
+	height: 400px;
+}	
+.mainNum
+{
+	font-family: Arial, Helvetica, sans-serif;
+	background: #223166;
+	font-size: 40px;
+	color: white;
+	padding: 40px;
+	border: none;
+	width: 200px;
+	height: 50px;
+	margin-top: 10px;
+	margin-right: 120px;
+}
+.row
+{
+	margin-left: 30%;
+	display: grid;
+	grid-template-columns: 20% 20%;
+}
+.rowone
+{
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: black;
+	font-size: 40px;
+	color: white;
+	padding: 40px;
+	border: none;
+	margin: 20px;
+	width: 40px;
+	height:40px;			
+}
+.rowone:hover
+{
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: red;
+	font-size: 40px;
+	color: white;
+	padding: 40px;
+	border: none;
+	margin: 20px;
+	width: 50px;
+	height: 50px;			
+}
+

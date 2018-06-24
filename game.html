@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Game React</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
+</head>
+<body>
+	<link rel="stylesheet" type="text/css" href="game.css"/>
+	<div id="show" align='center'></div>
+	<script type="text/jsx">
+		var toDiv={
+		};
+		var onButton={
+		};
+		var mainNum={
+		};
+		var row={
+		};
+		var rowone={
+		};
+		var rowtwo={
+		};
+		var Main = React.createClass({
+				getInitialState: function(){
+					return{
+						num: 0,
+						arr: [0,0,0,0,0,0],
+						num2: 0,
+						temp: 0,
+						count:0,
+						total:0,
+						k: 0
+					};
+				},
+				genRandom:function(){
+					var r=Math.floor(Math.random()*100+10);
+					this.state.num=r;
+					this.state.num2=r;
+				},
+				getArrayElements:function(){
+					var r=Math.floor(Math.random()*this.state.num2);
+					this.state.temp=r;
+				},
+				getNum: function(){
+					this.getArrayElements();
+					var a=this.state.arr;
+					a[this.state.k]=this.state.temp;
+					this.state.arr=a;
+					this.state.num2=this.state.num2-this.state.temp;
+					this.state.k=(this.state.k)+1;
+				},
+				getFourth: function(){
+					var sum=0;
+					var a=this.state.arr;
+					for(var i=0;i<3;i++)
+					{
+						sum=sum+a[i];
+					}
+					a[3]=this.state.num-sum;
+					this.state.arr=a;
+				},
+				shuffleArray: function(){
+					var a=this.state.arr;
+					var ctr=6;
+					var index=0;
+					a[4]=Math.floor(Math.random()*this.state.num);
+					a[5]=Math.floor(Math.random()*this.state.num);
+					while(ctr>0)
+					{
+						index=Math.floor(Math.random()*ctr);
+						ctr--;
+						var temp=a[index];
+						a[index]=a[ctr];
+						a[ctr]=temp;
+					}
+					this.state.arr=a;
+				},
+				calsum: function(number,event){
+					
+					event.currentTarget.style.backgroundColor = '#1f86a5';
+					this.state.count=this.state.count+1;
+					this.state.total=this.state.total+number;
+					if(this.state.total==this.state.num && this.state.count==4)
+					{
+						this.props.startAgain(1);
+					}
+				},
+				render: function(){
+					return( 
+						<div>
+							{this.genRandom()}
+							{this.getNum()}
+							{this.getNum()}
+							{this.getNum()}
+							{this.getFourth()}
+							{this.shuffleArray()}
+							<div className="mainNum">{this.state.num}</div>
+							<div className="row" align="center">
+								<label className="rowone" onClick={this.calsum.bind(null, this.state.arr[0])}>{this.state.arr[0]}</label>
+								<label className="rowone" onClick={this.calsum.bind(null, this.state.arr[1])}>{this.state.arr[1]}</label>
+								<label className="rowone" onClick={this.calsum.bind(null, this.state.arr[2])}>{this.state.arr[2]}</label>
+								<label className="rowone" onClick={this.calsum.bind(null, this.state.arr[3])}>{this.state.arr[3]}</label>
+								<label className="rowone" onClick={this.calsum.bind(null, this.state.arr[4])}>{this.state.arr[4]}</label>
+								<label className="rowone" onClick={this.calsum.bind(null, this.state.arr[5])}>{this.state.arr[5]}</label>
+							</div>
+						</div>
+					);
+				}
+			}
+		);
+		var Inputs = React.createClass({
+				getInitialState: function(){
+					return{
+						start: 'ON'
+					};
+				},
+				goToMain: function(val){
+					if(val==1)
+					{
+						this.gameStart2();
+					}
+					if(this.state.start=='OFF')
+					{
+						return(
+							<Main startAgain={this.goToMain}></Main>
+						);
+					}
+					
+				},
+				gameStart2: function(event){
+					this.setState({
+						start: 'OFF'
+					})
+					
+				},
+				gameStart: function(event){
+					if(this.state.start=='ON')
+					{
+						this.setState({
+							start: 'OFF'
+						})
+					}
+					else
+					{
+						this.setState({
+							start: 'ON'
+						})
+					}
+				},
+				render: function(){
+					return(
+						<div className="toDiv">
+							<label className="onButton" onClick={this.gameStart}>{this.state.start}</label>
+							<div>{this.goToMain()}</div>
+						</div>
+					);
+				}
+			}
+		);
+		React.render(
+				<div>
+					<Inputs />
+				</div>,
+				document.getElementById('show')
+		);
+	</script>
+</body>
+</html>
